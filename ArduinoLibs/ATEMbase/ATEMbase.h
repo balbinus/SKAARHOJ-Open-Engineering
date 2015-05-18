@@ -51,7 +51,7 @@ class ATEMbase
 	EthernetUDP _Udp;					// UDP object for communication, see constructor.
 	uint16_t _localPort; 				// Default local port to send from. Preferably it's chosen randomly inside the class.
 	IPAddress _switcherIP;				// IP address of the switcher
-	boolean _serialOutput;				// If set, the library will print status/debug information to the Serial object
+	uint8_t _serialOutput;				// If set, the library will print status/debug information to the Serial object
 
 	// ATEM Connection Basics
 	uint16_t _localPacketIdCounter;  	// This is our counter for the command packages we might like to send to ATEM
