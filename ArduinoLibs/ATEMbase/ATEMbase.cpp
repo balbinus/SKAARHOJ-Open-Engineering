@@ -263,6 +263,7 @@ void ATEMbase::runLoop(uint16_t delayTime) {
     // If connection is gone anyway, try to reconnect:
 	if (hasTimedOut(_lastContact, 5000))	{
       if (_serialOutput) Serial.println(F("Connection to ATEM Switcher has timed out - reconnecting!"));
+      _Udp.stop();
       connect();
     }	
 }
@@ -383,8 +384,7 @@ void ATEMbase::_parsePacket(uint16_t packetLength)	{
 		_cmdPointer = 0;
         
 			// Get the "command string", basically this is the 4 char variable name in the ATEM memory holding the various state values of the system:
-        char cmdStr[] = { 
-          _packetBuffer[4], _packetBuffer[5], _packetBuffer[6], _packetBuffer[7], '\0'};
+        char cmdStr[] = { (int8_t)_packetBuffer[4], (int8_t)_packetBuffer[5], (int8_t)_packetBuffer[6], (int8_t)_packetBuffer[7], '\0'};
 
 			// If length of segment larger than 8 (should always be...!)
         if (_cmdLength>8)  {
